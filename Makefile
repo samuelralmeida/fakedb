@@ -2,7 +2,7 @@ build:
 	docker build -t dumpfakedb .
 
 run:
-	docker run -d --name dumpfakedb --env-file .env -p 3306:3306 dumpfakedb
+	docker run -d --name dumpfakedb --env-file .env dumpfakedb
 
 bash:
 	docker exec -it dumpfakedb bash
@@ -10,5 +10,11 @@ bash:
 remove:
 	docker container rm dumpfakedb -f
 
-fakedb:
+fakedb-all:
 	docker exec -it dumpfakedb ./fakedb
+
+fakedb-all-dev:
+	docker exec -it dumpfakedb ./fakedb --target=dev
+
+fakedb-trem-staging:
+	docker exec -it dumpfakedb ./fakedb --source=trem --target=staging
